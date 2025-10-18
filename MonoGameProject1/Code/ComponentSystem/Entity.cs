@@ -31,6 +31,7 @@ public class Entity
     {
         Components.Add(component);
         component.Owner = this;
+        component.OnAddedToEntity();
     }
 
     public void RemoveComponent(EntityComponent component)

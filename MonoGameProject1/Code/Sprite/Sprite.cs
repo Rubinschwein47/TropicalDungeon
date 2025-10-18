@@ -10,16 +10,17 @@ public class Sprite
 
     public Rectangle sourceRectangle;
 
-    public float scale;
 
-    public Sprite(Texture2D texture, Rectangle sourceRectangle, float scale)
+    public float spriteScale;
+
+    public Sprite(Texture2D texture, Rectangle sourceRectangle, float spriteScale, float depth = 0f)
     {
         this.texture = texture;
         this.sourceRectangle = sourceRectangle;
-        this.scale = scale;
+        this.spriteScale = spriteScale;
     }
 
-    public void Draw(SpriteBatch spriteBatch, Vector2 position)
+    public void Draw(SpriteBatch spriteBatch, Vector2 position, float depth = 0f, float scale = 1f)
     {
         spriteBatch.Draw(
             texture,
@@ -28,8 +29,14 @@ public class Sprite
             Color.White,
             0f,
             Vector2.Zero,
-            Vector2.One*(scale*Game1.WorldUnitSize*SpriteUnitFactor),
+            Vector2.One*(scale*spriteScale*Game1.WorldUnitSize*SpriteUnitFactor),
             SpriteEffects.None,
-            0f);
+            depth);
     }
+}
+
+public class SpriteDepths
+{
+    public const float Wall = 0.5f;
+    public const float Player = 0.75f;
 }

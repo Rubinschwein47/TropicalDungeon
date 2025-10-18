@@ -5,6 +5,8 @@ using MonoGameProject1.Code;
 using MonoGameProject1.Code.ComponentSystem;
 using MonoGameProject1.Code.ComponentSystem.Components;
 using MonoGameProject1.Code.ComponentSystem.Components.GamePlay;
+using MonoGameProject1.Code.ComponentSystem.Components.Physics;
+using MonoGameProject1.Code.Physics;
 
 namespace MonoGameProject1;
 
@@ -41,12 +43,14 @@ public class Game1 : Game
         Info = new GameInfo();
         PopulateInfo();
         _player = new Entity(Vector2.One * 5, "Player");
-        _player.AddComponent(new SpriteRenderer(SpriteLoader.PlayerSprite));
+        _player.AddComponent(new SpriteRenderer(SpriteLoader.PlayerSprite,depth:SpriteDepths.Player));
         _player.AddComponent(new PlayerController());
+        _player.AddComponent(new Collider(Vector2.One*0.5f));
+        _player.AddComponent(new ActiveCollider());
         
         var wall = new Entity(Vector2.Zero, "Wall");
         wall.AddComponent(new SpriteRenderer(SpriteLoader.WallSprite));
-        
+        wall.AddComponent(new Collider(Vector2.One*0.5f));
     }
 
     protected override void LoadContent()
@@ -64,6 +68,7 @@ public class Game1 : Game
             Exit();
         
         EntityManager.Update();
+        CollisionChecker.CheckAll();
 
         base.Update(gameTime);
     }
@@ -71,7 +76,10 @@ public class Game1 : Game
     protected override void Draw(GameTime gameTime)
     {
         GraphicsDevice.Clear(new Color(17, 121, 92));
-        _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
+        _spriteBatch.Begin(
+            samplerState: SamplerState.PointClamp,
+            sortMode: SpriteSortMode.FrontToBack
+            );
 
         EntityManager.Draw(_spriteBatch);
         // playerSprite.Draw(_spriteBatch, Camera.WorldToScreen(new Vector2(0, 0)));

@@ -18,6 +18,5 @@ public class SpriteLoader
         FloorSprite = new Sprite(spriteSheet, new Rectangle(0, 8, 8, 8), 1f);
         WallSprite = new Sprite(spriteSheet, new Rectangle(0, 16, 8, 8), 1f);
         PlayerSprite = new Sprite(spriteSheet, new Rectangle(0, 24, 8, 8), 1f);
-        
     }
 }
