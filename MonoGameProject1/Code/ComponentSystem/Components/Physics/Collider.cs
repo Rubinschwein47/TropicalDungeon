@@ -8,10 +8,12 @@ public class Collider:EntityComponent
     public static List<Collider> Colliders = new();
 
     public Vector2 Dimensions;
+    public Vector2 Offset;
 
     public Collider(Vector2 dimensions)
     {
         Dimensions = dimensions;
+        Offset = dimensions/2;
     }
     
     

@@ -17,20 +17,23 @@ public class CollisionChecker
                     continue;
                 }
 
-                var distX = Math.Abs(collider.Owner.Position.X - activeCollider.Owner.Position.X)
+                var distX = Math.Abs(collider.Owner.Position.X + collider.Offset.Y - activeCollider.Owner.Position.X -
+                                     activeCollider.Collider.Offset.X)
                             - (collider.Dimensions.X + activeCollider.Collider.Dimensions.X);
                 if (distX > 0)
                 {
                     continue;
                 }
-                var disty = Math.Abs(collider.Owner.Position.Y - activeCollider.Owner.Position.Y)
+
+                var disty = Math.Abs(collider.Owner.Position.Y + collider.Offset.Y - activeCollider.Owner.Position.Y -
+                                     activeCollider.Collider.Offset.Y)
                             - (collider.Dimensions.Y + activeCollider.Collider.Dimensions.Y);
                 if (disty > 0f)
                 {
                     continue;
                 }
-                
-                activeCollider.OnCollide(collider,new Vector2(distX,disty));
+
+                activeCollider.OnCollide(collider, new Vector2(distX, disty));
             }
         }
     }

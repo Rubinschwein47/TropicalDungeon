@@ -12,4 +12,8 @@ public class Camera
     {
         return (worldPos-Instance.Position)*Game1.WorldUnitSize+ Game1.Info.ScreenCenter;
     }
-}
+    
+    public static Vector2 ScreenToWorld(Vector2 screenPos)
+    {
+        return (screenPos - Game1.Info.ScreenCenter) / Game1.WorldUnitSize + Instance.Position;
+    }}

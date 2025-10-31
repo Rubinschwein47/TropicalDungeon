@@ -20,15 +20,28 @@ public class Sprite
         this.spriteScale = spriteScale;
     }
 
-    public void Draw(SpriteBatch spriteBatch, Vector2 position, float depth = 0f, float scale = 1f)
+    public virtual void Draw(SpriteBatch spriteBatch, Vector2 position, float depth = 0f, float scale = 1f,float rotation = 0f)
     {
         spriteBatch.Draw(
             texture,
             position,
             sourceRectangle, 
             Color.White,
-            0f,
+            rotation,
             Vector2.Zero,
+            Vector2.One*(scale*spriteScale*Game1.WorldUnitSize*SpriteUnitFactor),
+            SpriteEffects.None,
+            depth);
+    }
+    public virtual void DrawCenterd(SpriteBatch spriteBatch, Vector2 position, float depth = 0f, float scale = 1f,float rotation = 0f)
+    {
+        spriteBatch.Draw(
+            texture,
+            position,
+            sourceRectangle, 
+            Color.White,
+            rotation,
+            Vector2.One*(scale*spriteScale*Game1.WorldUnitSize*SpriteUnitFactor),
             Vector2.One*(scale*spriteScale*Game1.WorldUnitSize*SpriteUnitFactor),
             SpriteEffects.None,
             depth);
@@ -37,6 +50,7 @@ public class Sprite
 
 public class SpriteDepths
 {
-    public const float Wall = 0.5f;
+    public const float Floor = 0.3f;
+    public const float Wall = 0.4f;
     public const float Player = 0.75f;
 }

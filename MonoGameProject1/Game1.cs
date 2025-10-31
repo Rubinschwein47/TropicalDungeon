@@ -7,6 +7,7 @@ using MonoGameProject1.Code.ComponentSystem.Components;
 using MonoGameProject1.Code.ComponentSystem.Components.GamePlay;
 using MonoGameProject1.Code.ComponentSystem.Components.Physics;
 using MonoGameProject1.Code.Physics;
+using MonoGameProject1.Code.World;
 
 namespace MonoGameProject1;
 
@@ -48,9 +49,7 @@ public class Game1 : Game
         _player.AddComponent(new Collider(Vector2.One*0.5f));
         _player.AddComponent(new ActiveCollider());
         
-        var wall = new Entity(Vector2.Zero, "Wall");
-        wall.AddComponent(new SpriteRenderer(SpriteLoader.WallSprite));
-        wall.AddComponent(new Collider(Vector2.One*0.5f));
+        Level.BuildLevel(Vector2.Zero);
     }
 
     protected override void LoadContent()
@@ -75,7 +74,7 @@ public class Game1 : Game
 
     protected override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.Clear(new Color(17, 121, 92));
+        GraphicsDevice.Clear(new Color(28,10,20));
         _spriteBatch.Begin(
             samplerState: SamplerState.PointClamp,
             sortMode: SpriteSortMode.FrontToBack
